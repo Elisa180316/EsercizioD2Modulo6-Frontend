@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, postsArray, postsLoading } from "../Reducers/postsSlice";
-
 import { SingleCard } from "../Components/SingleCard";
 import { Container, Row, Col } from "react-bootstrap";
 import "../styles/home.css";
@@ -21,7 +20,7 @@ const Home = () => {
   const totalPages = 3;
 
   const [postsPerPage, setPostsPerPage] = useState(20);
-  const postsPerPageOptions = [3, 6, 8, 36];
+  const postsPerPageOptions = [0, 3, 6, 8, 36];
 
   useEffect(() => {
     dispatch(getPosts());
