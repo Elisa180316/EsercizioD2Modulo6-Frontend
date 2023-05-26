@@ -1,24 +1,10 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
-const useAuth = () => {
-    const session = JSON.parse(localStorage.getItem("loggedIn"));
-    if (session && session.payload.email && session.payload.email.length > 0) {
-        return true
-    }
-    return false
-}
+import { Outlet } from "react-router-dom";
+import  useSession  from '../hook/useSession.js';
+import Login from '../Pages/Login';
 
 const ProtectedRoutes = () => {
-    const isAuthorized = useAuth();
-    console.log(isAuthorized)
-    const navigate = useNavigate();
-    useEffect(()=>{
-        if (!isAuthorized){
-            navigate("/", {replace:true})
-        }
-    },[navigate])
-    return <Outlet />
+  const session = useSession();
+  return session ? <Outlet /> : <Login />;
 }
 
 export default ProtectedRoutes;

@@ -36,7 +36,7 @@ const loginSlice = createSlice ({
         })
         .addCase(loginRequest.fulfilled, (state, action) => {
             state.isLoading = false
-            state.response = action.payload.message
+            state.response = action.payload
 
             if (action.payload.statusCode === 200) {
                 localStorage.setItem ("loggedIn", JSON.stringify(action.payload))

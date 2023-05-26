@@ -3,8 +3,14 @@ import Button from "react-bootstrap/Button";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginLoading, loginResponse, loginRequest } from "../Reducers/loginSlice";
-
+import {
+  loginLoading,
+  loginResponse,
+  loginRequest,
+} from "../Reducers/loginSlice";
+import "../styles/login.css";
+import {Toast} from '../utilities/notifications'
+import {Toaster} from 'react-hot-toast'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -13,22 +19,22 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-  
-  const dispatch = useDispatch()
-  const isLoading = useSelector(loginLoading)
-  const response = useSelector(loginResponse)
-  
-
-
-
+  const dispatch = useDispatch();
 
   const post = async (e) => {
     e.preventDefault();
-    dispatch(loginRequest(formData))
-    .then (() => {
-      navigate('/home')
-    })
-  }
+    dispatch(loginRequest(formData)).then((action) => {
+      if (action.payload && action.payload.token) {
+        // Salva token in local storage
+        localStorage.setItem("auth", JSON.stringify(action.payload.token));
+        // Naviga a home
+        navigate("/home", { replace: true });
+      }
+    });
+  };
+
+  
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,21 +42,17 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="d-flex justify-content-center mt-5">
-        <img
-          src="https://www.freeiconspng.com/thumbs/login-icon/user-login-icon-29.png"
-          alt="immagine-login"
-        />
-      </div>
-      <Form className="m-5" onSubmit={post}> 
+    <div className="box">
+      <Form className="m-5" onSubmit={post}>
+        <h2>Sign in</h2>
         <Form.Control
           onChange={handleInputChange}
           name="email"
           type="email"
           placeholder="Inserisci email..."
-          className="my-2"
+          className="form my-2"
         />
+
         <Form.Control
           onChange={handleInputChange}
           name="password"
@@ -58,9 +60,13 @@ const Login = () => {
           placeholder="Inserisci password..."
           className="my-2"
         />
+        <div className="links">
+          <a href="#">Forgot Password</a>
+          <a href="#">Signup</a>
+        </div>
         <Button type="submit">Login</Button>
       </Form>
-    </>
+    </div>
   );
 };
 

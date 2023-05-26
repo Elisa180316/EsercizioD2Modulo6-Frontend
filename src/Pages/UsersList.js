@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import '../styles/usersList.css'
+
 
 
 const UsersList = () => {
