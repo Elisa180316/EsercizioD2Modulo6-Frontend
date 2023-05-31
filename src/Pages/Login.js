@@ -11,12 +11,15 @@ import {
 import "../styles/login.css";
 import { Toast } from "../utilities/notifications";
 import { Toaster } from "react-hot-toast";
+import useSession from "../hook/useSession";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  // useSession();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

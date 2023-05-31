@@ -8,8 +8,13 @@ import Navbar from "react-bootstrap/Navbar";
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 import useSession from "../hook/useSession";
-import '../styles/home.css'
-
+import "../styles/home.css";
+import AddPostModal from "../Components/Modals/AddPostModal";
+import {
+  newPostsLoading,
+  newPostsArray,
+  addNewPost,
+} from "../Reducers/addNewPostSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -17,25 +22,35 @@ const Home = () => {
   console.log(test);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 3;
+  const totalPages = 10;
 
   const [postsPerPage, setPostsPerPage] = useState(20);
   const postsPerPageOptions = [0, 3, 6, 8, 36];
 
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(addNewPost());
   }, [dispatch]);
 
-  const isLoading = useSelector((postsLoading));
+  const isLoading = useSelector(postsLoading);
   const allPosts = useSelector(postsArray);
 
   console.log("isLoading:", isLoading);
   console.log("allPosts:", allPosts);
 
+  const newPostIsLoading = useSelector(newPostsLoading);
+  const allNewPosts = useSelector(newPostsArray);
+
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
   const displayedPosts = allPosts.slice(startIndex, endIndex);
 
+  const handleAddNewPost = (postData) => {
+    dispatch(addNewPost(postData));
+    setShow(false);
+  };
   return (
     <>
       <Navbar>
@@ -43,6 +58,12 @@ const Home = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Brand>Epiblog</Navbar.Brand>
         </Container>
+        <AddPostModal
+          showModal={show}
+          setShowModal={setShow}
+          handleAddNewPost={handleAddNewPost}
+          newPostIsLoading={newPostIsLoading}
+        />
 
         <div>
           <span>Posts per page</span>
@@ -68,6 +89,18 @@ const Home = () => {
           <Col className="d-flex flex-wrap gap-3 mt-3 mb-5" lg={12}>
             {displayedPosts &&
               displayedPosts.map((item) => (
+                <SingleCard
+                  key={item._id}
+                  title={item.title}
+                  img={item.img}
+                  content={item.content}
+                  author={item.author}
+                  rate={item.rate}
+                />
+              ))}
+            {/* Render per nuovi posts */}
+            {allNewPosts &&
+              allNewPosts.map((item) => (
                 <SingleCard
                   key={item._id}
                   title={item.title}

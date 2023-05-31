@@ -22,7 +22,7 @@
   width: 142px;
 }
 
-#root > nav > div:nth-child(2) > span {
+#root > nav > div:nth-child(3) > span {
   color: white;
   font-weight: bold;
 }

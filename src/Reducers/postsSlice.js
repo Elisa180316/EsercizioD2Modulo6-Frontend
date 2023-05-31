@@ -50,7 +50,3 @@ export const postsLoading = (state) => state.postsState.isLoading;
 export const postsArray = (state) => state.postsState.posts;
 
 export default postsSlice.reducer;
-
-
-
-

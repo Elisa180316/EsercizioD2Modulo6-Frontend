@@ -11,7 +11,7 @@ export const loginRequest = createAsyncThunk(
     async (data) => {
         try {
             const response = await fetch ("http://localhost:5050/login", {
-                method: "POST",
+                method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -39,7 +39,7 @@ const loginSlice = createSlice ({
             state.response = action.payload
 
             if (action.payload.statusCode === 200) {
-                localStorage.setItem ("loggedIn", JSON.stringify(action.payload))
+                localStorage.setItem ("auth", JSON.stringify(action.payload))
             }
         }) 
 
