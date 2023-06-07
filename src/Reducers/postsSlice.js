@@ -4,19 +4,18 @@ const initialState = {
   response: null,
   error: null,
   isLoading: false,
-  posts: [],
+ 
+ 
 };
 
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
 
-  async (_, { rejectWithValue }) => {
+  async ({page, pageSize}, { rejectWithValue }) => {
     try {
       console.log("Fetching posts...");
-      const response = await fetch("http://localhost:5050/posts");
-      const data = await response.json();
-      console.log(data);
-      return data;
+      const response = await fetch(`http://localhost:5050/posts?page=${page}&pageSize=${pageSize}`);
+      return await response.json()
     } catch (error) {
       console.error("Error fetching posts:", error);
       return rejectWithValue(error);
@@ -35,7 +34,7 @@ const postsSlice = createSlice({
       .addCase(getPosts.fulfilled, (state, action) => {
         console.log("getPosts.fulfilled - payload:", action.payload);
         state.isLoading = false;
-        state.posts = action.payload.posts;
+        state.posts = action.payload;
       })
 
       .addCase(getPosts.rejected, (state) => {

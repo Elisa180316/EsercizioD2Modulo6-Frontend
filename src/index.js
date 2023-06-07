@@ -7,10 +7,12 @@ import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import loginReducer from "./Reducers/loginSlice";
 import postsReducer from "./Reducers/postsSlice";
+import addNewPostReducer from "./Reducers/addNewPostSlice";
 
 const reducer = combineReducers({
   loginState: loginReducer,
   postsState: postsReducer,
+  createPostState: addNewPostReducer
 });
 
 const store = configureStore({

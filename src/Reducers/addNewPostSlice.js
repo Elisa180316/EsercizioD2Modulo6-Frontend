@@ -4,8 +4,8 @@ const initialState = {
   response: null,
   error: null,
   isLoading: false,
-  posts: [],
-};
+
+ };
 
 export const addNewPost = createAsyncThunk(
   "posts/addNewPost",
@@ -20,9 +20,7 @@ export const addNewPost = createAsyncThunk(
         },
         body: JSON.stringify(postData),
       });
-      const data = await response.json();
-      console.log(data);
-      return data;
+     return await response.json()
     } catch (error) {
       console.error("Error adding post:", error);
       return rejectWithValue(error);
@@ -42,6 +40,7 @@ const addNewpostsSlice = createSlice({
           console.log("addNewPost.fulfilled - payload:", action.payload);
           state.isLoading = false;
           state.response = action.payload;
+        
         })
         .addCase(addNewPost.rejected, (state) => {
           state.isLoading = false;
@@ -51,8 +50,8 @@ const addNewpostsSlice = createSlice({
   });
 
  
-export const newPostResponse = (state) => state.postsState.response;
-export const newPostsLoading = (state) => state.postsState.isLoading;
-export const newPostsArray = (state) => state.postsState.posts;
+export const newPostResponse = (state) => state.createPostState.response;
+export const newPostsLoading = (state) => state.createPostState.isLoading;
+export const newPostsArray = (state) => state.createPostState.posts;
 
 export default addNewpostsSlice.reducer;

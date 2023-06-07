@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import AddPostForm from "../forms/AddPostForm";
+import '../../styles/addPostModal.css'
 
 
-const AddPostModal = ({ handleAddNewPost, newPostIsLoading }) => {
+
+const AddPostModal = ({ handleAddNewPost, postsPerPage }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);//funzione per la chiusura del modale aggiornando lo stato  su false.//
@@ -11,6 +13,7 @@ const AddPostModal = ({ handleAddNewPost, newPostIsLoading }) => {
   const handleSubmit = (postData) => {
     handleAddNewPost(postData) //funzione richiamata quando viene inviato il Form. Riceve il postData come parametro e chiama la funzione handleAddNewPost, passando il postData. 
     
+   
   };
   
     
@@ -22,10 +25,10 @@ const AddPostModal = ({ handleAddNewPost, newPostIsLoading }) => {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Post</Modal.Title>
+          <Modal.Title>Submit a new post</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddPostForm close={handleClose} handleSubmit={handleSubmit} />
+          <AddPostForm close={handleClose} handleSubmit={handleSubmit} postsPerPage={postsPerPage} />
         </Modal.Body>
       </Modal>
     </>

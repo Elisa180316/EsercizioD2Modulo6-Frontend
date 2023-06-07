@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Toast } from "..//..//utilities/notifications";
-import {getPosts} from '..//../Reducers/postsSlice'
+import { Toast } from "../../utilities/notifications";
+import {getPosts} from '../../Reducers/postsSlice'
 import { addNewPost } from "../../Reducers/addNewPostSlice";
+import useDecodedSession from "../../hook/useDecodedSession"
+import { Toaster } from "react-hot-toast";
 
-
-const AddPostForm = ({ close }) => {
+const AddPostForm = ({ close, postsPerPage }) => {
   const toast = new Toast("Post salvato con successo");
   const noFile = new Toast(
     "File mancante, per favore selezionare almeno un file"
   );
+
+  const actualUser = useDecodedSession()
+  console.log(actualUser)
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
+
+  console.log(file)
+  console.log(formData)
 
   const onChangeHandlerFile = (e) => {//funzione chiamata quando viene selezionato un file. Imposta il file selezionato utilizzando l'hook di stato setFile
     setFile(e.target.files[0]); //Upload singolo file nell'indice 0
@@ -56,11 +63,12 @@ const AddPostForm = ({ close }) => {
             //per dare i posts aggiornati senza refresh//
             getPosts({
               page: 1,
-              pageSize: 8,
+              pageSize: postsPerPage,
+
             })
           );
           
-          close();
+         
         });
       } catch (error) {
         console.error("Failed to save the post", error);
@@ -72,6 +80,10 @@ const AddPostForm = ({ close }) => {
   };
 
   return (
+    <>
+    <div>
+        <Toaster position="top-center" reverseOrder={false} />
+      </div>
     <div className="p-4">
       {/* Accetta sia file in upload che normali */}
       <form onSubmit={submitPost} encType="multipart/form-data">
@@ -79,7 +91,7 @@ const AddPostForm = ({ close }) => {
           <input
             type="text"
             name="title"
-            placeholder="titolo"
+            placeholder="Write a title"
             className="p-2 text-dark mb-2"
             onChange={(e) =>
               setFormData({
@@ -88,7 +100,7 @@ const AddPostForm = ({ close }) => {
               })
             }
           />
-          <input
+          {/* <input
             type="text"
             name="author"
             placeholder="autore"
@@ -99,10 +111,10 @@ const AddPostForm = ({ close }) => {
                 author: e.target.value,
               })
             }
-          />
+          /> */}
           <select
             name="rate"
-            placeholder="voto"
+            placeholder="Give a rate"
             className="p-2 text-dark mb-2"
             onChange={(e) =>
               setFormData({
@@ -111,7 +123,7 @@ const AddPostForm = ({ close }) => {
               })
             }
           >
-            <option>Dai un voto</option>
+            <option>Give a rate</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -119,9 +131,26 @@ const AddPostForm = ({ close }) => {
             <option value="5">5</option>
           </select>
         </div>
+        {/* Admin loggato */}
+        <div>
+         
+          {actualUser && actualUser.role === "admin" && 
+            <select
+          name ="author"
+          placeholder = "author"
+          onChange={(e) =>
+          setFormData({
+            ...formData,
+            author:e.target.value
+          })}
+          >
+<option value = {actualUser._id}>{actualUser.firstname}
+</option>
+          </select>}
+        </div>
         <div>
           <textarea
-            placeholder="Testo del post...."
+            placeholder="Write here your post"
             className="p-2 text-dark mb-2"
             rows={8}
             onChange={(e) =>
@@ -141,15 +170,16 @@ const AddPostForm = ({ close }) => {
           />
         </div>
         <div className="mt-8">
-          <button type="submit" className="bg-primary">
+          <button onClick={() => close()} type="submit" className="bg-primary">
             Salva
           </button>
-          <button onClick={() => close()} className="bg-primary">
+          <button  className="bg-primary">
             Chiudi
           </button>
         </div>
       </form>
     </div>
+    </>
   );
 };
 
