@@ -14,7 +14,7 @@ export const getPosts = createAsyncThunk(
   async ({page, pageSize}, { rejectWithValue }) => {
     try {
       console.log("Fetching posts...");
-      const response = await fetch(`http://localhost:5050/posts?page=${page}&pageSize=${pageSize}`);
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/posts?page=${page}&pageSize=${pageSize}`);
       return await response.json()
     } catch (error) {
       console.error("Error fetching posts:", error);

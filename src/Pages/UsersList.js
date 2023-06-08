@@ -13,7 +13,7 @@ const UsersList = () => {
   const getUsers = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5050/users?page=${page}&pageSize=${pageSize}`
+        `${process.env.REACT_APP_SERVER_BASE_URL}/users?page=${page}&pageSize=${pageSize}`
       );
       const data = await response.json();
       setData(data);

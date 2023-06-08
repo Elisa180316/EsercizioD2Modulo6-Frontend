@@ -13,7 +13,7 @@ export const addNewPost = createAsyncThunk(
   async (postData, { rejectWithValue }) => {
     try {
       console.log("Adding post...");
-      const response = await fetch("http://localhost:5050/posts", {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -11,7 +11,8 @@ import {
 import "../styles/login.css";
 import { Toast } from "../utilities/notifications";
 import { Toaster } from "react-hot-toast";
-import useSession from "../hook/useSession";
+
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -48,6 +49,10 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+// Login con github
+  const handleLoginWithGitHub = () => {
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/github`
+  }
 
   return (
     <>
@@ -77,6 +82,12 @@ const Login = () => {
             <a href="#">Signup</a>
           </div>
           <Button type="submit">Login</Button>
+          <Button 
+          onClick={handleLoginWithGitHub}
+          className="bg-primary">
+            
+            Login with GitHub
+          </Button>
         </Form>
       </div>
     </>

@@ -5,7 +5,6 @@ import  {SingleCard} from "../Components/SingleCard";
 import { Container, Row, Col, Nav, NavDropdown } from "react-bootstrap";
 import "../styles/home.css";
 import Navbar from "react-bootstrap/Navbar";
-import {Link} from 'react-router-dom'
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 import useSession from "../hook/useSession";
@@ -118,7 +117,7 @@ const Home = () => {
                   title={item.title}
                   img={item.img}
                   content={item.content}
-                  author={item.author ? item.author.name : 'unknown'}
+                  author={item.author ? item.author.firstname : 'unknown'}
                   rate={item.rate}
                 />
               ))}
@@ -131,7 +130,7 @@ const Home = () => {
                   title={item.title}
                   img={item.img}
                   content={item.content}
-                  author={item.author}
+                  author={item.author ? item.author.firstname : 'unknown'}
                   rate={item.rate}
                 />
               ))}
