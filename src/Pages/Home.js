@@ -113,27 +113,16 @@ const Home = () => {
               allPosts.posts?.map((item) => (
                 
                 <SingleCard
-                  key={item._id}
-                  title={item.title}
-                  img={item.img}
-                  content={item.content}
-                  author={item.author ? item.author.firstname : 'unknown'}
-                  rate={item.rate}
+                  key={item?._id}
+                  title={item?.title}
+                  img={item?.img}
+                  content={item?.content}
+                  author={item?.author?.firstname ? item.author?.firstname : item.author}
+                  rate={item?.rate}
                 />
               ))}
               
-            {/* Render per nuovi posts */}
-            {allNewPosts &&
-              allNewPosts.map((item) => (
-                <SingleCard
-                  key={item._id}
-                  title={item.title}
-                  img={item.img}
-                  content={item.content}
-                  author={item.author ? item.author.firstname : 'unknown'}
-                  rate={item.rate}
-                />
-              ))}
+            
           </Col>
         </Row>
       </Container>

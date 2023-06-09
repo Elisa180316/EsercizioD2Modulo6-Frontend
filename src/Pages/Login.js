@@ -50,9 +50,12 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 // Login con github
-  const handleLoginWithGitHub = () => {
-    window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/github`
-  }
+const handleLoginWithGitHub = () => {
+  window.location.href = `${process.env.REACT_APP_SERVER_BASE_URL}/auth/github`;
+};
+
+
+
 
   return (
     <>
@@ -84,7 +87,7 @@ const Login = () => {
           <Button type="submit">Login</Button>
           <Button 
           onClick={handleLoginWithGitHub}
-          className="bg-primary">
+          >
             
             Login with GitHub
           </Button>

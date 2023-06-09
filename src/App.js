@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import ProtectedRoutes from "./Middleware/ProtectedRoutes.js";
 import UsersList from "./Pages/UsersList";
+import Success from "./Pages/Success";
 
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/home" element={<Home />} />
           
+          
         </Route>
+        
       </Routes>
     </BrowserRouter>
   );

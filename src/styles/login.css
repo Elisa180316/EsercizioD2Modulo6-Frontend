@@ -73,3 +73,9 @@ h2 {
   background: #45f3ff;
   color: #23242a;
 }
+
+#root > div.box > form > button:nth-child(6) {
+  height: 65px;
+  width: 145px;
+  margin-left: 36px;
+}
