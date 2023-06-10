@@ -18,6 +18,7 @@ import {
 import useDecodedSession from "../hook/useDecodedSession";
 
 const Home = () => {
+  
 
   const actualUser = useDecodedSession()
   console.log(actualUser)
@@ -117,7 +118,7 @@ const Home = () => {
                   title={item?.title}
                   img={item?.img}
                   content={item?.content}
-                  author={item?.author?.firstname ? item.author?.firstname : item.author}
+                  author={[item?.author?._id]?.email} 
                   rate={item?.rate}
                 />
               ))}

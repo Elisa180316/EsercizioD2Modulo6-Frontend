@@ -132,7 +132,7 @@ const AddPostForm = ({ close, postsPerPage }) => {
           </div>
           {/* Admin loggato */}
           <div>
-            {actualUser && actualUser.role === "user" && (
+            {actualUser && actualUser.role === "admin" && (
               <select
                 name="author"
                 placeholder="author"

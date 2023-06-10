@@ -14,7 +14,7 @@ export const SingleCard = ({title, content, author, rate, img}) => {
         <Card.Text>
           {content.slice(0,40)}
         </Card.Text>
-        <Card.Title>{author}</Card.Title>
+        <Card.Title>{author}</Card.Title> {/* Render the author's name */}
         <Card.Title>{rate}</Card.Title>
       </Card.Body>
       
