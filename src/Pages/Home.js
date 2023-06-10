@@ -114,11 +114,14 @@ const Home = () => {
               allPosts.posts?.map((item) => (
                 
                 <SingleCard
-                  key={item?._id}
-                  title={item?.title}
-                  img={item?.img}
-                  content={item?.content}
-                  author={[item?.author?._id]?.email} 
+                  key={item._id}
+                  title={item.title}
+                  img={item.img}
+                  content={item.content}
+                  author={
+                    item.author?.firstname ? item.author?.firstname : item.author?.lastname ? item.author?.lastname : item.author
+                  }
+                  
                   rate={item?.rate}
                 />
               ))}
