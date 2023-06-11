@@ -143,7 +143,7 @@ const AddPostForm = ({ close, postsPerPage }) => {
                   })
                 }
               >
-                <option value={actualUser._id}>{actualUser.firstname}</option>
+                <option value={actualUser.id}>{actualUser.firstname}</option>
               </select>
             )}
           </div>

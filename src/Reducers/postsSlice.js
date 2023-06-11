@@ -4,7 +4,7 @@ const initialState = {
   response: null,
   error: null,
   isLoading: false,
- 
+  posts: [],
  
 };
 
