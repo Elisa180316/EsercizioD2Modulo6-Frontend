@@ -118,8 +118,8 @@ const Home = () => {
                   title={item.title}
                   img={item.img}
                   content={item.content}
-                  author={JSON.stringify(
-                    item.author?.firstname ? item.author?.firstname : item.author)
+                  author={
+                    item.author?.firstname ? item.author?.firstname : item.author
                   }
                   
                   rate={item.rate}
