@@ -119,7 +119,7 @@ const Home = () => {
                   img={item.img}
                   content={item.content}
                   author={
-                    item.author?.firstname ? item.author?.firstname : item.author
+                    item.author.email
                   }
                   
                   rate={item.rate}

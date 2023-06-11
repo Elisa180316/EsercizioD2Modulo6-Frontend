@@ -5,17 +5,18 @@ const initialState = {
   error: null,
   isLoading: false,
   posts: [],
- 
 };
 
 export const getPosts = createAsyncThunk(
   "posts/getPosts",
 
-  async ({page, pageSize}, { rejectWithValue }) => {
+  async ({ page, pageSize }, { rejectWithValue }) => {
     try {
       console.log("Fetching posts...");
-      const response = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/posts?page=${page}&pageSize=${pageSize}`);
-      return await response.json()
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_BASE_URL}/posts?page=${page}&pageSize=${pageSize}`
+      );
+      return await response.json();
     } catch (error) {
       console.error("Error fetching posts:", error);
       return rejectWithValue(error);
