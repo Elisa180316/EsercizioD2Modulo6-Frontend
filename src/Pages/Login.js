@@ -50,10 +50,13 @@ const Login = () => {
   // Login con github
   const handleLoginWithGitHub = () => {
     window.location.href = `${process.env.REACT_APP_SERVER_BASE_URL}/auth/github`;
+    successToast.success();
+    
   };
 
   const handleLoginWithGoogle = () => {
     window.location.href = `${process.env.REACT_APP_SERVER_BASE_URL}/auth/google`;
+    successToast.success();
   };
 
   return (

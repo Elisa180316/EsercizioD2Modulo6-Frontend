@@ -7,8 +7,8 @@ import useDecodedSession from "../../hook/useDecodedSession";
 import { Toaster } from "react-hot-toast";
 
 const AddPostForm = ({ close, postsPerPage }) => {
-  const toast = new Toast("Post salvato con successo");
-  const noFile = new Toast(
+  const successToast = new Toast("Post salvato con successo");
+  const errorToast = new Toast(
     "File mancante, per favore selezionare almeno un file"
   );
 
@@ -66,7 +66,7 @@ const AddPostForm = ({ close, postsPerPage }) => {
         };
 
         dispatch(addNewPost(postFormData)).then(() => {
-          toast.success();
+          successToast.success()
           dispatch(
             //per dare i posts aggiornati senza refresh//
             getPosts({
@@ -80,7 +80,7 @@ const AddPostForm = ({ close, postsPerPage }) => {
       }
     } else {
       console.error("Please select at least one file");
-      noFile.missedFile();
+      errorToast.error();
     }
   };
 
