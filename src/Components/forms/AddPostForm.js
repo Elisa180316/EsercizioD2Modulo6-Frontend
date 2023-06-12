@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { Toast } from "../../utilities/notifications";
 import { getPosts } from "../../Reducers/postsSlice";
@@ -13,13 +13,21 @@ const AddPostForm = ({ close, postsPerPage }) => {
   );
 
   const actualUser = useDecodedSession();
-  console.log(actualUser);
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({});
+  const [users, setUsers] = useState(null)
+  console.log(users)
   const dispatch = useDispatch();
 
-  console.log(file);
-  console.log(formData);
+  const getAllusers = async () => {
+    try {
+      const data = await fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/users`)
+      const response = await data.json()
+      setUsers(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const onChangeHandlerFile = (e) => {
     //funzione chiamata quando viene selezionato un file. Imposta il file selezionato utilizzando l'hook di stato setFile
@@ -57,8 +65,6 @@ const AddPostForm = ({ close, postsPerPage }) => {
           img: uploadedFile.img,
         };
 
-        console.log(uploadedFile);
-        console.log(file);
         dispatch(addNewPost(postFormData)).then(() => {
           toast.success();
           dispatch(
@@ -77,6 +83,10 @@ const AddPostForm = ({ close, postsPerPage }) => {
       noFile.missedFile();
     }
   };
+
+  useEffect(() => {
+    getAllusers()
+  }, [])
 
   return (
     <>
@@ -99,18 +109,6 @@ const AddPostForm = ({ close, postsPerPage }) => {
                 })
               }
             />
-            {/* <input
-            type="text"
-            name="author"
-            placeholder="autore"
-            className="p-2 text-dark mb-2"
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                author: e.target.value,
-              })
-            }
-          /> */}
             <select
               name="rate"
               placeholder="Give a rate"
@@ -132,7 +130,7 @@ const AddPostForm = ({ close, postsPerPage }) => {
           </div>
           {/* Admin loggato */}
           <div>
-            {actualUser && actualUser.role === "admin" && (
+            {actualUser && actualUser?.role === "user" ? (
               <select
                 name="author"
                 placeholder="author"
@@ -143,9 +141,29 @@ const AddPostForm = ({ close, postsPerPage }) => {
                   })
                 }
               >
-                <option value={actualUser.id}>{actualUser.firstname}</option>
+                <option>Scegli autore</option>
+                <option value={actualUser?.id}>{actualUser?.firstname}</option>
               </select>
+            ): (
+                <select
+                    name="author"
+                    placeholder="author"
+                    onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          author: e.target.value,
+                        })
+                    }
+                >
+                  <option>Scegli autore</option>
+                  {users && users.users.map((option) => {
+                    return (
+                        <option key={option._id} value={option._id}>{option.firstname} {option.lastname}</option>
+                    )
+                  })}
+                </select>
             )}
+
           </div>
           <div>
             <textarea

@@ -12,7 +12,6 @@ export const getPosts = createAsyncThunk(
 
   async ({ page, pageSize }, { rejectWithValue }) => {
     try {
-      console.log("Fetching posts...");
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_BASE_URL}/posts?page=${page}&pageSize=${pageSize}`
       );
@@ -33,7 +32,6 @@ const postsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getPosts.fulfilled, (state, action) => {
-        console.log("getPosts.fulfilled - payload:", action.payload);
         state.isLoading = false;
         state.posts = action.payload;
       })

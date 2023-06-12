@@ -41,7 +41,7 @@ const UsersList = () => {
                 <Card.Header><h5>User's details</h5></Card.Header>
                 <Card.Body>
                   <Card.Title>Username:</Card.Title>
-                  <Card.Text>{user.username}</Card.Text>
+                  <Card.Text>{user.firstname}</Card.Text>
                   <Card.Title>Email:</Card.Title>
                   <Card.Text>{user.email}</Card.Text>
                 </Card.Body>

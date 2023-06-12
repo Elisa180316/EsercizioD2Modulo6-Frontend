@@ -21,7 +21,6 @@ const Home = () => {
   
 
   const actualUser = useDecodedSession()
-  console.log(actualUser)
   const dispatch = useDispatch();
 
   const test = useSession();
@@ -40,9 +39,6 @@ const Home = () => {
 
   const isLoading = useSelector(postsLoading);
   const allPosts = useSelector(postsArray);
-
-  console.log("isLoading:", isLoading);
-  console.log("allPosts:", allPosts);
 
   const newPostIsLoading = useSelector(newPostsLoading);
   const allNewPosts = useSelector(newPostsArray);
@@ -94,7 +90,7 @@ const Home = () => {
         {actualUser && (
           <NavDropdown align="end" title= {
             <>
-            <img src="https://picsum.photos/55/55"/>
+            <img src="https://picsum.photos/55/55" alt=""/>
             </>
 
           }

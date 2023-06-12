@@ -16,8 +16,12 @@ const reducer = combineReducers({
 });
 
 const store = configureStore({
-  reducer,
-});
+    reducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
+})
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
